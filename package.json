@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite --open",
+    "test":"",
     "build": "vue-tsc && vite build",
     "preview": "vite preview",
     "format": "prettier --write \"./**/*.{html,vue,ts,js,json,md}\"",
