@@ -1,0 +1,1 @@
+{"version":"0.0.0","name":"guigu-admin","dependencies":{"postcss-html":{"version":"1.5.0"},"postcss-scss":{"version":"4.0.6"},"postcss":{"version":"8.4.25"},"sass-loader":{"version":"13.3.2"},"sass":{"version":"1.63.6"},"stylelint-config-prettier":{"version":"9.0.5"},"stylelint-config-recess-order":{"version":"2.6.0"},"stylelint":{"version":"14.16.1"},"vue":{"version":"3.3.4"}}}
