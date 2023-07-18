@@ -9,7 +9,7 @@
     "paths": { //路径映射，相对于baseUrl
       "@/*": ["src/*"] 
     },
-    // "types": ["element-plus/global"],
+    "types": ["element-plus/global"],
 
     /* Bundler mode */
     "moduleResolution": "node",

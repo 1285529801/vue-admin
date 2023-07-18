@@ -8,7 +8,7 @@ import type {
 
 enum API {
   LOGIN_URL = '/user/login',
-  USERINFO_URL = '/user/infoY',
+  USERINFO_URL = '/user/info',
   LOGOUT_URL = '/admin/acl/index/logout',
 }
 

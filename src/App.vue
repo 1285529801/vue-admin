@@ -1,29 +1,17 @@
 <template>
-  <div>
-    <h1>我是app</h1>
-    <el-button type="warning">123</el-button>
-    <el-button type="primary" plain>Primary</el-button>
-    <SvgIcon name="house" width="39px" height="39px"></SvgIcon>
-  </div>
+    <el-config-provider :locale="locale">
+    <router-view></router-view>
+  </el-config-provider>
 </template>
 
 <script setup lang='ts'>
-import {onMounted} from 'vue'
-import {reqLogin,reqUserInfo} from '@/api/user/index.ts'
+import { ElConfigProvider } from 'element-plus'
+import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
+import { ref } from 'vue'
 
-onMounted(()=>{
-  reqLogin({
-    username:'admin',
-    password:'111111'
-  }).then(res => {
-    console.log(res);
-  })
-  reqUserInfo().then(res =>{console.log(res);})
-})
+const locale = ref(zhCn)
 </script>
 
 <style scoped lang="scss">
-h1{
-  color:$red;
-}
+
 </style>
