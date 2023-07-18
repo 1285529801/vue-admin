@@ -3,7 +3,7 @@
     <el-row>
       <el-col :span="12" :xs="0"></el-col>
       <el-col :span="12">
-        <el-form class="login_form">
+        <el-form class="login_form" :model="loginData" :rules="rules" ref="loginForm">
           <el-form-item prop="title">
             <p class="login_title">欢迎来到硅谷甄选平台</p>
           </el-form-item>
@@ -29,6 +29,43 @@ import { reactive, ref } from 'vue';
 import { ElNotification } from 'element-plus'
 import { useRouter } from 'vue-router'
 import useUserStore from '@/store/module/user'
+import { getTime } from '@/utils/time'
+
+//#region 表单校验
+const loginForm = ref()
+// 账号自定义校验
+const checkUserName = (_rule: any, value: any, callback: any) => {
+  if (value.length < 5 || value.length > 10) {
+    callback(new Error('账号长度应为6~10位'))
+  }
+  else if (value === '') {
+    callback(new Error('账号不能为空'))
+  }
+  else {
+    callback()
+  }
+}
+// 密码自定义校验
+const checkPassWord = (_rule: any, value: string, callback: any) => {
+  if (value.length < 6 || value.length > 15) {
+    callback(new Error('密码长度应为6~15位'))
+  }
+  else if (value === '') {
+    callback(new Error('密码不能为空'))
+  }
+  else {
+    callback()
+  }
+}
+const rules = reactive({
+  username: [
+    { validator: checkUserName, trigger: 'change' }
+  ],
+  password: [
+    { validator: checkPassWord, trigger: 'change' }
+  ]
+})
+//#endregion 
 
 //#region 登录业务
 const userStore = useUserStore();
@@ -43,6 +80,8 @@ const isLogin = ref(false)
 
 // 登录方法
 const user_login = async () => {
+  // 等待所有表单校验通过后，才能发送请求
+  await loginForm.value.validate()
   isLogin.value = true
   try {
     // 等待成功之后
@@ -51,7 +90,8 @@ const user_login = async () => {
     $router.push('/home')
     ElNotification({
       type: 'success',
-      message: '登陆成功'
+      message: '登陆成功',
+      title: `Hi! ${getTime()}好`
     })
     isLogin.value = false
   } catch (error) {
@@ -63,6 +103,8 @@ const user_login = async () => {
   }
 }
 //#endregion
+
+
 </script>
 
 <style lang='scss' scoped>

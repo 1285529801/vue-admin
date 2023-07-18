@@ -1,11 +1,13 @@
 import { defineStore } from 'pinia'
 import { reqLogin } from '@/api/user/index'
-import type { LoginFormData } from '@/api/user/type'
+import type { LoginFormData,LoginResponseData } from '@/api/user/type'
+import type {userState} from '@/store/module/types/types'
+import {SET_TOKEN,GET_tOKEN} from '@/utils/token'
 
 const useUserStore = defineStore('user', {
-  state: () => {
+  state: ():userState => {
     return {
-      token: localStorage.getItem('TOKEN'), // 用户唯一标识
+      token: GET_tOKEN('TOKEN'), // 用户唯一标识
     }
   },
   getters: {
@@ -14,12 +16,12 @@ const useUserStore = defineStore('user', {
   actions: {
     // 用户登录方法
     async userLogin(data: LoginFormData) {
-      let result = await reqLogin(data)
+      let result:LoginResponseData = await reqLogin(data)
       if (result.code === 200) {
         // 存储token
-        this.token = result.data.token
+        this.token = (result.data.token as string)
         // 利用浏览器localStorage token持久化
-        localStorage.setItem('TOKEN',result.data.token)
+        SET_TOKEN((result.data.token as string))
         return 'ok'
       }
       else {
