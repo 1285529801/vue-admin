@@ -87,7 +87,7 @@ const user_login = async () => {
     // 等待成功之后
     await userStore.userLogin(loginData)
     // 跳转到首页
-    $router.push('/home')
+    $router.push('/')
     ElNotification({
       type: 'success',
       message: '登陆成功',

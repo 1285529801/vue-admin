@@ -1,5 +1,7 @@
 import axios from "axios";
 import { ElMessage } from "element-plus";
+import useUserStore from "@/store/module/user";
+
 //创建axios实例
 let request = axios.create({
     baseURL: import.meta.env.VITE_APP_BASE_API,
@@ -7,6 +9,12 @@ let request = axios.create({
 })
 //请求拦截器
 request.interceptors.request.use(config => {
+    let userStore = useUserStore()
+    // 将登陆后获取并存储在user仓库中的TOKEN放入请求拦截器中
+    // 随用户发的每一个请求，都会带有其TOKEN
+    if (userStore.token) {
+        config.headers.token = userStore.token
+    }
     return config;
 });
 //响应拦截器

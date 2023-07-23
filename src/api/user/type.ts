@@ -19,10 +19,15 @@ export interface LoginResponseData extends ResponseData {
 
 export interface userInfoResponseData extends ResponseData {
   data: {
+    message:''
     routes: string[]
     buttons: string[]
     roles: string[]
     name: string
     avatar: string
+    checkUser:{
+      username:string,
+      avatar:string
+    }
   }
 }

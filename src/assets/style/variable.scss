@@ -1,2 +1,31 @@
 // 再此文件配置scss全局变量
-$red:red
+// layout 
+$base-menu-width: 230px;
+$base-menu-min-width: 60px;
+$base-menu-background:#001529;
+$base-menu-logo-title:15px;
+$base-menu-logo-height:60px;
+$base-tabbar-height:60px;
+$base-main-background:antiquewhite;
+
+// 颜色
+$color-red:rgb(255, 0, 0);
+$color-blue:rgb(0, 179, 255);
+$color-yellow:yellow;
+$color-green:rgb(131, 247, 168);
+$color-black:rgb(0, 0, 0);
+$color-black-opacity-1:rgba(0,0,0,.1);
+$color-black-opacity-2:rgba(0,0,0,.2);
+$color-black-opacity-3:rgba(0,0,0,.3);
+$color-black-opacity-4:rgba(0,0,0,.4);
+$color-black-opacity-5:rgba(0,0,0,.5);
+$color-black-opacity-6:rgba(0,0,0,.6);
+$color-black-opacity-7:rgba(0,0,0,.7);
+$color-white:rgb(255, 255, 255);
+$color-white-opacity-1:rgba(255, 255, 255,.1);
+$color-white-opacity-2:rgba(255, 255, 255,.2);
+$color-white-opacity-3:rgba(255, 255, 255,.3);
+$color-white-opacity-4:rgba(255, 255, 255,.4);
+$color-white-opacity-5:rgba(255, 255, 255,.5);
+$color-white-opacity-6:rgba(255, 255, 255,.6);
+$color-white-opacity-7:rgba(255, 255, 255,.7);
