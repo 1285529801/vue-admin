@@ -4,6 +4,7 @@ import useUserStore from "@/store/module/user";
 
 //创建axios实例
 let request = axios.create({
+    // http://sph-api.atguigu.cn
     baseURL: import.meta.env.VITE_APP_BASE_API,
     timeout: 5000
 })

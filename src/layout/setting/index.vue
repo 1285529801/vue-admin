@@ -69,7 +69,7 @@ const handleSetting = () => {
 }
 
 // 退出登录
-const loginOut = () => {
+const loginOut = async () => {
   ElMessageBox.confirm(
     '确认注销并退出系统吗？',
     '提示',
@@ -79,8 +79,8 @@ const loginOut = () => {
       type: 'warning',
     }
   )
-    .then(() => {
-      userStore.userLoginOut()
+    .then(async () => {
+      await userStore.userLoginOut()
       $router.push('/login')
     })
 }

@@ -71,7 +71,7 @@ const rules = reactive({
 const userStore = useUserStore();
 const loginData = reactive({
   username: 'admin',
-  password: '111111'
+  password: 'atguigu123'
 })
 // 获取路由
 const $router = useRouter()
