@@ -21,7 +21,6 @@ const useUserStore = defineStore('user', {
     // 用户登录方法
     async userLogin(data: LoginFormData) {
       let result: LoginResponseData = await reqLogin(data)
-      console.log(result);
       if (result.code === 200) {
         // 存储token
         this.token = (result.data as string)
@@ -36,7 +35,6 @@ const useUserStore = defineStore('user', {
     // 获取用户信息
     async userInfo() {
       let result:userInfoResponseData = await reqUserInfo()
-      console.log('userInfo', result);
       if (result.code == 200) {
         this.userName = result.data.name
         this.avatar = result.data.avatar
@@ -48,7 +46,6 @@ const useUserStore = defineStore('user', {
     // 用户退出登录
     async userLoginOut() {
       let result:any = await reqLogOut()
-      console.log(result);
       if (result.code == 200) {
         this.token = ''
         this.userName = ''
