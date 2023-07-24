@@ -90,7 +90,7 @@ const user_login = async () => {
     $router.push('/')
     ElNotification({
       type: 'success',
-      message: '登陆成功',
+      message: '登录成功',
       title: `Hi! ${getTime()}好`
     })
     isLogin.value = false

@@ -4,7 +4,7 @@
     <div class="layout_slider" :class="{ slider_collapse: LayoutStore.isCollapse ? true : false }">
       <Logo />
       <el-scrollbar class="slider_scrollbar">
-        <el-menu default-active="/home" :collapse="LayoutStore.isCollapse" :background-color="setting.menuColor"
+        <el-menu :default-active="getRoute()" :collapse="LayoutStore.isCollapse" :background-color="setting.menuColor"
           :text-color="setting.menuTextColor">
           <Menu :menuList="userStore.menuRoutes"></Menu>
         </el-menu>
@@ -43,12 +43,19 @@ import setting from '@/setting/index.ts'
 import useUserStore from '@/store/module/user'
 import useLayoutStore from '@/store/module/layout.ts'
 import { ref } from 'vue'
+import { useRoute } from 'vue-router'
 
 const settingColor = ref('#409EFF')
 const settingBlack = ref(false)
 const userStore = useUserStore()
 const LayoutStore = useLayoutStore()
+const $route = useRoute()
 
+// 获取当前路由，用于菜单栏的active聚焦
+const getRoute = () => {
+  let length = $route.matched.length
+  return $route.matched[length - 1].path
+}
 </script>
 
 <style lang='scss' scoped>
@@ -79,6 +86,7 @@ const LayoutStore = useLayoutStore()
   .layout_tabbar {
     width: calc(100% - $base-menu-width);
     height: $base-tabbar-height;
+    border-bottom: 1px solid $color-black-opacity-2;
     position: fixed;
     top: 0px;
     left: $base-menu-width;
