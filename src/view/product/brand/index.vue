@@ -178,7 +178,7 @@ const rules = reactive({
 .brand_container {
   border: 1px solid $color-black-opacity-2;
   border-radius: 5px;
-  box-shadow: 0px 0px 2px 1px $color-black-opacity-2;
+  box-shadow: 0px 0px 2px 2px $color-black-opacity-1;
   background-color: $color-white;
   padding: 20px;
 
