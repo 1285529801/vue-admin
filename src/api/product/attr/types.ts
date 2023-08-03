@@ -25,6 +25,7 @@ export interface AttrObj {
   attrName?: string,
   categoryId?: string | number,
   categoryLevel?: number,
+  attrIdAndValueId?: string
   attrValueList?: AttrValueList
 }
 export interface SortResponseData extends ResponseData {

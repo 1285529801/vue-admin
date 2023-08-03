@@ -1,32 +1,16 @@
 <template>
   <div>
     <div class="attr_top">
-      <el-form :inline="true">
-        <el-form-item label="一级分类">
-          <el-select placeholder="请选择" v-model="attrStore.c1Id" @change="getC1Arr" :disabled="isAdd ? true : false">
-            <el-option v-for="item in attrStore.c1Arr" :key="item.id" :label="item.name" :value="item.id" />
-          </el-select>
-        </el-form-item>
-        <el-form-item label="二级分类">
-          <el-select placeholder="请选择" v-model="attrStore.c2Id" @change="getC2Arr" :disabled="isAdd ? true : false">
-            <el-option v-for="item in attrStore.c2Arr" :key="item.id" :label="item.name" :value="item.id" />
-          </el-select>
-        </el-form-item>
-        <el-form-item label="三级分类">
-          <el-select placeholder="请选择" v-model="attrStore.c3Id" @change="getAttrList" :disabled="isAdd ? true : false">
-            <el-option v-for="item in attrStore.c3Arr" :key="item.id" :label="item.name" :value="item.id" />
-          </el-select>
-        </el-form-item>
-      </el-form>
+      <Select :scene="scene"></Select>
     </div>
     <div class="attr_main">
-      <div v-if="!isAdd">
+      <div v-if="scene == 0">
         <div>
           <el-button type="primary" :icon="Plus" :disabled="attrStore.c3Id ? false : true"
             @click="changeEdit">添加平台属性</el-button>
         </div>
         <div>
-          <el-table :data="attrStore.attrList" :border="true" style="width: 100%" stripe v-loading="loading">
+          <el-table :data="attrStore.attrList" :border="true" style="width: 100%" stripe>
             <el-table-column label="序号" type="index" width="80" :align="align" />
             <el-table-column label="属性名称" prop="attrName" />
             <el-table-column label="属性值名称">
@@ -53,10 +37,10 @@
           <el-form-item>
             <el-button type="primary" :icon="Plus" :disabled="attrParams.attrName ? false : true"
               @click="addAttr">添加属性值</el-button>
-            <el-button @click="isAdd = false">取消</el-button>
+            <el-button @click="scene = 0">取消</el-button>
           </el-form-item>
           <el-form-item>
-            <el-table :data="attrParams.attrValueList" :border="true" style="width: 100%" stripe v-loading="loading">
+            <el-table :data="attrParams.attrValueList" :border="true" style="width: 100%" stripe>
               <el-table-column label="序号" type="index" width="80" :align="align" />
               <el-table-column label="属性值">
                 <template #default="scope">
@@ -76,7 +60,7 @@
           </el-form-item>
           <el-form-item>
             <el-button type="primary" :disabled="isSave ? false : true" @click="save">保存</el-button>
-            <el-button @click="isAdd = false">取消</el-button>
+            <el-button @click="scene = 0">取消</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -86,16 +70,15 @@
 
 <script setup lang='ts'>
 import { Plus, Edit, Delete } from '@element-plus/icons-vue'
-import { ref, onMounted, reactive, nextTick } from 'vue'
+import { ref, reactive, nextTick, watch, onMounted } from 'vue'
 import useAttrStore from '@/store/module/attr'
 import type { AttrObj } from '@/api/product/attr/types'
 import { reqAddOrUpdateAttr, reqDeleteAttr } from '@/api/product/attr/index'
 import { ElMessage, ElMessageBox } from 'element-plus'
 
-const isAdd = ref<boolean>(false)
+const scene = ref<number>(0)
 const isSave = ref<boolean>(false)
 const align = ref<string>('center')
-const loading = ref<boolean>(false)
 const inputRef = ref<any>([])
 const attrStore = useAttrStore()
 const attrParams = reactive<AttrObj>({
@@ -106,12 +89,18 @@ const attrParams = reactive<AttrObj>({
 })
 
 onMounted(() => {
-  attrStore.getC1()
+  attrStore.attrList = []
 })
 
+// 监听c3Id的变化，发请求
+watch(() => attrStore.c3Id, () => {
+  if (attrStore.c3Id) {
+    attrStore.getAttrList()
+  }
+})
 const handleEdit = (row: any) => {
   isSave.value = true
-  isAdd.value = true
+  scene.value = 1
   // 深拷贝
   // 利用JSON.stringify 将js对象序列化（JSON字符串），再使用JSON.parse来反序列化(还原)js对象
   Object.assign(attrParams, JSON.parse(JSON.stringify(row)))
@@ -129,7 +118,7 @@ const handleDelete = (row: any) => {
     .then(async () => {
       let result = await reqDeleteAttr(row.id)
       if (result.code == 200) {
-        getAttrList()
+        attrStore.getAttrList()
         ElMessage({
           type: 'success',
           message: '删除成功',
@@ -167,23 +156,6 @@ const handleDeleteAttr = (row: any, $index: any) => {
 
     })
 }
-// 获取二级分类
-const getC1Arr = () => {
-  attrStore.attrList = []
-  attrStore.getC2()
-}
-// 获取三级分类
-const getC2Arr = () => {
-  attrStore.attrList = []
-  attrStore.getC3()
-}
-// 获取属性值列表
-const getAttrList = () => {
-  console.log("我执行力！");
-  loading.value = true
-  attrStore.getAttrList()
-  loading.value = false
-}
 
 const changeEdit = () => {
   // 每次编辑前先清空数据
@@ -191,9 +163,10 @@ const changeEdit = () => {
     attrName: '',
     attrValueList: [],
     categoryId: '',
-    categoryLevel: 3
+    categoryLevel: 3,
+    id: ''
   })
-  isAdd.value = true
+  scene.value = 1
 }
 // 添加属性值
 const addAttr = () => {
@@ -215,6 +188,7 @@ const toLook = (row: any, $index: number) => {
     nextTick(() => {
       inputRef.value[$index].focus()
     })
+    isSave.value = false
     return
   }
   // 非法情况2
@@ -228,8 +202,10 @@ const toLook = (row: any, $index: number) => {
     nextTick(() => {
       inputRef.value[$index].focus()
     })
+    isSave.value = false
     return
   }
+  isSave.value = true
   row.flag = false
 }
 // 保存
@@ -240,11 +216,11 @@ const save = async () => {
   if (result.code == 200) {
     ElMessage.success(attrParams.id ? '修改成功' : '添加成功')
     // 成功后重新获取属性值列表
-    getAttrList()
+    attrStore.getAttrList()
   } else {
     ElMessage.error(result.message)
   }
-  isAdd.value = false
+  scene.value = 0
 }
 
 const toEdit = (row: any, $index: number) => {
