@@ -23,8 +23,31 @@ export interface SkuData {
   skuAttrValueList?: Attr[],
   skuSaleAttrValueList?: saleAttr[],
   skuDefaultImg: string
+  isSale?: number
+  id?: number
 }
 
-export interface SkuInfoData extends ResponseData{
-  data:SkuData[]
+export interface SkuInfoData extends ResponseData {
+  data: SkuData[]
+}
+
+export interface SkuResponseData extends ResponseData {
+  data: {
+    records: SkuData[],
+    total: number,
+    size: number,
+    current: number,
+    orders: [],
+    optimizeCountSql: boolean,
+    hitCount: boolean,
+    countId: null,
+    maxLimit: null,
+    searchCount: boolean,
+    pages: number
+
+  }
+}
+
+export interface SkuInfoResponseData extends ResponseData {
+  data: SkuData
 }
