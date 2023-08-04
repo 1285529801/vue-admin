@@ -35,8 +35,8 @@ import { getTime } from '@/utils/time'
 const loginForm = ref()
 // 账号自定义校验
 const checkUserName = (_rule: any, value: any, callback: any) => {
-  if (value.length < 5 || value.length > 10) {
-    callback(new Error('账号长度应为6~10位'))
+  if (value.length < 5) {
+    callback(new Error('账号长度应大于或等于5位'))
   }
   else if (value === '') {
     callback(new Error('账号不能为空'))
@@ -47,8 +47,8 @@ const checkUserName = (_rule: any, value: any, callback: any) => {
 }
 // 密码自定义校验
 const checkPassWord = (_rule: any, value: string, callback: any) => {
-  if (value.length < 6 || value.length > 15) {
-    callback(new Error('密码长度应为6~15位'))
+  if (value.length < 6) {
+    callback(new Error('密码长度应大于或等于6位'))
   }
   else if (value === '') {
     callback(new Error('密码不能为空'))

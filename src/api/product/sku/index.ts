@@ -7,8 +7,8 @@ enum API {
   QUERY_SKU_INFO_URL = '/admin/product/findBySpuId/',
   SKU_SALE_URL = '/admin/product/onSale/',
   SKU_CANCEL_SALE_URL = '/admin/product/cancelSale/',
-  SKU_INFO_URL = '/admin/product/getSkuById/',
-  DELETE_SKU_URL = '/admin/product/deleteSku/'
+  SKU_INFO_URL = '/admin/product/getSkuInfo/',
+  DELETE_SKU_URL = '/admin/product/deleteSku/',
 }
 export const reqGetSkuList = (page: number, limit: number) => {
   return request.get<any, SkuResponseData>(API.GET_SKU_LIST_URL + `${page}/${limit}`)

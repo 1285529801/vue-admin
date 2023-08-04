@@ -30,31 +30,39 @@
       <template #default>
         <div v-if="skuInfo">
           <el-row style="margin-bottom: 15px;">
-            <el-col :span="6">名称</el-col>
-            <el-col :span="18">123</el-col>
+            <el-col :span="6">名称：</el-col>
+            <el-col :span="18" style="color:grey">{{ skuInfo.skuName }}</el-col>
           </el-row>
           <el-row style="margin-bottom: 15px;">
-            <el-col :span="6">描述</el-col>
-            <el-col :span="18">123</el-col>
+            <el-col :span="6">描述：</el-col>
+            <el-col :span="18" style="color:grey">{{ skuInfo.skuDesc }}</el-col>
           </el-row>
           <el-row style="margin-bottom: 15px;">
-            <el-col :span="6">价格</el-col>
-            <el-col :span="18">123</el-col>
+            <el-col :span="6">价格：</el-col>
+            <el-col :span="18" style="color:grey">{{ skuInfo.price }}</el-col>
           </el-row>
           <el-row style="margin-bottom: 15px;">
-            <el-col :span="6">平台属性</el-col>
-            <el-col :span="18">123</el-col>
+            <el-col :span="6">平台属性：</el-col>
+            <el-col :span="18">
+              <el-tag v-for="item in skuInfo.skuAttrValueList" :key="item.id" style="margin: 5px;">
+                {{ item.valueName }}
+              </el-tag>
+            </el-col>
           </el-row>
           <el-row style="margin-bottom: 15px;">
-            <el-col :span="6">销售属性</el-col>
-            <el-col :span="18">123</el-col>
+            <el-col :span="6">销售属性：</el-col>
+            <el-col :span="18">
+              <el-tag v-for="item in skuInfo.skuSaleAttrValueList" :key="item.id" style="margin: 5px;">
+                {{ item.saleAttrValueName }}
+              </el-tag>
+            </el-col>
           </el-row>
           <el-row style="margin-bottom: 15px;">
-            <el-col :span="6">商品图片</el-col>
+            <el-col :span="6">商品图片：</el-col>
             <el-col :span="18">
               <el-carousel :interval="4000" type="card" height="200px">
-                <el-carousel-item v-for="item in 6" :key="item">
-                  <h3 text="2xl" justify="center">{{ item }}</h3>
+                <el-carousel-item v-for="item in skuInfo.skuImageList" :key="item.id">
+                  <img :src="item.imgUrl" :alt="item.imgName" style="width: 100%;height: 100%;">
                 </el-carousel-item>
               </el-carousel>
             </el-col>
