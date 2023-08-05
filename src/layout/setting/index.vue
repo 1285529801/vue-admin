@@ -1,14 +1,26 @@
 <template>
   <div class="setting">
-    <div @click="handleRefresh">
-      <el-button :icon="Refresh" circle />
-    </div>
-    <div @click="handleFullScreen">
-      <el-button :icon="FullScreen" circle />
-    </div>
-    <div>
-      <el-button :icon="Setting" circle @click="handleSetting" />
-    </div>
+    <el-popover placement="bottom" title="刷新" :width="200" trigger="hover" content="点击刷新">
+      <template #reference>
+        <div @click="handleRefresh">
+          <el-button :icon="Refresh" circle />
+        </div>
+      </template>
+    </el-popover>
+    <el-popover placement="bottom" title="全屏" :width="200" trigger="hover" content="点击切换全屏">
+      <template #reference>
+        <div @click="handleFullScreen">
+          <el-button :icon="FullScreen" circle />
+        </div>
+      </template>
+    </el-popover>
+    <el-popover placement="bottom" title="主题设置" :width="200" trigger="hover" content="点击设置主题样式">
+      <template #reference>
+        <div>
+          <el-button :icon="Setting" circle @click="handleSetting" />
+        </div>
+      </template>
+    </el-popover>
     <el-dropdown trigger="click" class="userInfo">
       <div>
         <div>

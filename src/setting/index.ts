@@ -8,10 +8,10 @@ interface settingType {
 }
 
 const setting: settingType = {
-  title: '硅谷甄选运营平台',
-  logo: 'public/logo025.png',
-  menuColor: '#001529',
-  menuTextColor: 'white',
-  activeTextColor: 'rgb(131, 247, 168)',
+  title: 'Green Home', //平台名称
+  logo: 'public/logo025.png', // logoUrl
+  menuColor: '#001529', // 菜单背景色
+  menuTextColor: 'white', // 菜单文字颜色
+  activeTextColor: 'rgb(131, 247, 168)', // 菜单选中文字颜色
 }
 export default setting

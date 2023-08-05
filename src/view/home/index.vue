@@ -1,11 +1,13 @@
 <template>
-  <div class="home_container">
-    <div><el-avatar :size="50" :src="userStore.avatar" /></div>
-    <div>
-      <p>{{ getTime() }}好, {{ userStore.userName }}</p>
-      <p>欢迎来到{{ setting.title }}</p>
+  <div>
+    <div class="home_container">
+      <div><el-avatar :size="50" :src="userStore.avatar" /></div>
+      <div>
+        <p>{{ getTime() }}好, {{ userStore.userName }}</p>
+        <p>欢迎来到{{ setting.title }}</p>
+      </div>
     </div>
-
+    <SvgIcon name="welcome" width="760px" height="760px" class="welcome"/>
   </div>
 </template>
 
@@ -33,16 +35,23 @@ const userStore = useUserStore()
     margin: 0px 10px;
   }
 
-  >div:nth-child(2){
-    >p{
+  >div:nth-child(2) {
+    >p {
       line-height: 25px;
     }
-    >p:first-of-type{
+
+    >p:first-of-type {
       font-weight: bold;
     }
-    >p:nth-child(2){
+
+    >p:nth-child(2) {
       color: $color-black-opacity-5;
     }
   }
+}
+.welcome{
+  position: absolute;
+  top: 0;
+  margin-left: 25vw;
 }
 </style>

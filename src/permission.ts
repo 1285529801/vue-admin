@@ -15,7 +15,7 @@ const userStore = useUserStore(pinia)
 //#endregion
 
 // 前置守卫
-router.beforeEach(async (to: any, from: any, next: any) => {
+router.beforeEach(async (to: any, _from: any, next: any) => {
   nprogress.start()
   let token = userStore.token
   let userName = userStore.userName
@@ -48,7 +48,7 @@ router.beforeEach(async (to: any, from: any, next: any) => {
 })
 
 // 后置守卫
-router.afterEach((to: any, from: any, next: any) => {
+router.afterEach((to: any, _from: any, _next: any) => {
   document.title = `${setting.title}-` + `${to.meta.title}`
   nprogress.done()
 })

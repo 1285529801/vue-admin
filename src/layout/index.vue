@@ -20,16 +20,15 @@
     </div>
 
     <el-drawer v-model="LayoutStore.drawer" title="主题设置">
-      <div class="layout_drawer">
-        <div>
-          <span>主题颜色</span>
-          <el-color-picker v-model="settingColor" />
-        </div>
-        <div>
-          <span>暗黑模式</span>
-          <el-switch v-model="settingBlack" />
-        </div>
-      </div>
+      <el-form>
+        <el-form-item label="主题颜色">
+          <el-color-picker v-model="settingColor" @change="setColor" :show-alpha="true" />
+        </el-form-item>
+        <el-form-item label="暗黑模式">
+          <el-switch v-model="settingBlack" @change="change" :active-icon="MoonNight" :inactive-icon="Sunny" inline-prompt
+            size="large" />
+        </el-form-item>
+      </el-form>
     </el-drawer>
   </div>
 </template>
@@ -44,6 +43,7 @@ import useUserStore from '@/store/module/user'
 import useLayoutStore from '@/store/module/layout.ts'
 import { ref } from 'vue'
 import { useRoute } from 'vue-router'
+import { MoonNight, Sunny } from '@element-plus/icons-vue'
 
 const settingColor = ref('#409EFF')
 const settingBlack = ref(false)
@@ -55,6 +55,16 @@ const $route = useRoute()
 const getRoute = () => {
   let length = $route.matched.length
   return $route.matched[length - 1].path
+}
+// 切换暗黑模式
+const change = () => {
+  let html = document.documentElement
+  settingBlack.value ? html.className = 'dark' : html.className = ''
+}
+// 设置主题颜色
+const setColor = () => {
+  let html = document.documentElement
+  html.style.setProperty('--el-color-primary', settingColor.value)
 }
 </script>
 
@@ -102,7 +112,7 @@ const getRoute = () => {
   .layout_main {
     width: calc(100% - $base-menu-width);
     height: calc(100vh - $base-tabbar-height);
-    background-color: $base-main-background;
+    // background-color: $base-main-background;
     position: absolute;
     top: $base-tabbar-height ;
     left: $base-menu-width;
@@ -129,18 +139,6 @@ const getRoute = () => {
     width: 10px;
     background-color: #fff;
     border-radius: 10px;
-  }
-
-  .layout_drawer {
-    >div {
-      display: flex;
-      justify-content: space-between;
-
-      >span {
-        position: relative;
-        top: 5px;
-      }
-    }
   }
 }
 </style>
