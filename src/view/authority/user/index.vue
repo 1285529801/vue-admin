@@ -209,7 +209,6 @@ const addUser = () => {
 // 编辑用户
 const updateUser = (row: any) => {
   drawer1.value = true
-  console.log(row);
   Object.assign(userParams, row)
   // 清除上一次的表单校验信息
   nextTick(() => {
@@ -322,7 +321,6 @@ const batchRemove = async () => {
 // 搜索用户
 const search = async () => {
   getUserList()
-  keyWord.value = ''
 }
 // 重置
 const reset = () => {
