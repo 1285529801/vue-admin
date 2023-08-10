@@ -5,7 +5,8 @@ export interface userState {
   token: string | null
   menuRoutes: RouteRecordRaw[]
   userName: string,
-  avatar: string
+  avatar: string,
+  buttons:string[]
 }
 
 export interface layoutState {

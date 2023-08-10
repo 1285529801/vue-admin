@@ -18,6 +18,9 @@ import './permission'
 // 暗黑模式
 import 'element-plus/theme-chalk/dark/css-vars.css'
 
+// 自定义指令
+import { isHasButton } from '@/directive/has'
+
 const app = createApp(App)
 app.use(ElementPlus, {
   // Element-Plus 中文化
@@ -27,5 +30,6 @@ app.use(globalComponents)
 app.use(router)
 app.use(pinia)
 // 要保证mount在所有use之后
+isHasButton(app)
 app.mount('#app')
 

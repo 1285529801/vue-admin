@@ -1,4 +1,5 @@
 import { RouteRecordRaw } from "vue-router"
+// 常量路由：大家都能访问
 export const constantRouters: RouteRecordRaw[] = [
   {
     path: '/login',
@@ -15,15 +16,6 @@ export const constantRouters: RouteRecordRaw[] = [
     name: '404',
     meta: {
       title: '404',
-      hidden: true,
-    }
-  },
-  {
-    path: '/:pathMatch(.*)*',
-    redirect: '/404',
-    name: 'Any',
-    meta: {
-      title: 'any',
       hidden: true,
     }
   },
@@ -56,15 +48,20 @@ export const constantRouters: RouteRecordRaw[] = [
       icon: 'screen',
     }
   },
+
+]
+
+// 异步路由，需要权限判断
+export const asyncRouters: RouteRecordRaw[] = [
   {
     path: '/authority',
     component: () => import('@/layout/index.vue'),
-    name: 'Authority',
+    name: 'Acl',
     meta: {
       title: '权限管理',
       icon: 'limit'
     },
-    redirect:'/authority/user',
+    redirect: '/authority/user',
     children: [
       {
         path: '/authority/user',
@@ -87,7 +84,7 @@ export const constantRouters: RouteRecordRaw[] = [
       {
         path: '/authority/menu',
         component: () => import('@/view/authority/menu/index.vue'),
-        name: 'Menu',
+        name: 'OrderList',
         meta: {
           title: '菜单管理',
           icon: 'menu',
@@ -103,12 +100,12 @@ export const constantRouters: RouteRecordRaw[] = [
       title: '商品管理',
       icon: 'shop'
     },
-    redirect:'/product/brand',
+    redirect: '/product/brand',
     children: [
       {
         path: '/product/brand',
         component: () => import('@/view/product/brand/index.vue'),
-        name: 'Brand',
+        name: 'Trademark',
         meta: {
           title: '品牌管理管理',
           icon: 'brand',
@@ -117,7 +114,7 @@ export const constantRouters: RouteRecordRaw[] = [
       {
         path: '/product/attribute',
         component: () => import('@/view/product/attribute/index.vue'),
-        name: 'Attribute',
+        name: 'Attr',
         meta: {
           title: '属性管理',
           icon: 'attribute',
@@ -142,5 +139,18 @@ export const constantRouters: RouteRecordRaw[] = [
         }
       }
     ]
+  }
+]
+
+// 任意路由
+export const anyRouters: RouteRecordRaw[] = [
+  {
+    path: '/:pathMatch(.*)*',
+    redirect: '/404',
+    name: 'Any',
+    meta: {
+      title: 'any',
+      hidden: true,
+    }
   }
 ]
